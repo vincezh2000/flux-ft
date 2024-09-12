@@ -147,7 +147,7 @@ def create_argparser():
         "--height", type=int, default=1024, help="The height for generated image"
     )
     parser.add_argument(
-        "--num_steps", type=int, default=25, help="The num_steps for diffusion process"
+        "c", type=int, default=25, help="The num_steps for diffusion process"
     )
     parser.add_argument(
         "--guidance", type=float, default=4, help="The guidance for diffusion process"
