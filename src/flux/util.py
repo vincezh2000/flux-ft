@@ -6,6 +6,7 @@ import json
 import cv2
 import numpy as np
 from PIL import Image
+from einops import rearrange
 from huggingface_hub import hf_hub_download
 from safetensors import safe_open
 from safetensors.torch import load_file as load_sft
@@ -361,11 +362,13 @@ def load_controlnet(name, device, transformer=None):
     return controlnet
 
 def load_t5(device: str | torch.device = "cuda", max_length: int = 512) -> HFEmbedder:
-    # max length 64, 128, 256 and 512 should work (if your sequence is short enough)
-    return HFEmbedder("xlabs-ai/xflux_text_encoders", max_length=max_length, torch_dtype=torch.bfloat16).to(device)
+    # max length 64, 128, 256 and 512 should work (if your sequence is short enoug
+    t5_path = os.getenv("T5")
+    return HFEmbedder("xlabs-ai/xflux_text_encoders", local_path=t5_path, max_length=max_length, torch_dtype=torch.bfloat16).to(device)
 
 def load_clip(device: str | torch.device = "cuda") -> HFEmbedder:
-    return HFEmbedder("openai/clip-vit-large-patch14", max_length=77, torch_dtype=torch.bfloat16).to(device)
+    clip_path = os.getenv("CLIP")
+    return HFEmbedder("openai/clip-vit-large-patch14", local_path=clip_path, max_length=77, torch_dtype=torch.bfloat16).to(device)
 
 
 def load_ae(name: str, device: str | torch.device = "cuda", hf_download: bool = True) -> AutoEncoder:
@@ -388,6 +391,10 @@ def load_ae(name: str, device: str | torch.device = "cuda", hf_download: bool = 
         missing, unexpected = ae.load_state_dict(sd, strict=False, assign=True)
         print_load_warning(missing, unexpected)
     return ae
+
+
+class WatermarkEncoder:
+    pass
 
 
 class WatermarkEmbedder:

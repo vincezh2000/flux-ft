@@ -4,18 +4,34 @@ from transformers import (CLIPTextModel, CLIPTokenizer, T5EncoderModel,
 
 
 class HFEmbedder(nn.Module):
-    def __init__(self, version: str, max_length: int, **hf_kwargs):
+    def __init__(self, version: str, max_length: int, local_path:str = None, **hf_kwargs):
         super().__init__()
         self.is_clip = version.startswith("openai")
         self.max_length = max_length
         self.output_key = "pooler_output" if self.is_clip else "last_hidden_state"
 
         if self.is_clip:
-            self.tokenizer: CLIPTokenizer = CLIPTokenizer.from_pretrained(version, max_length=max_length)
-            self.hf_module: CLIPTextModel = CLIPTextModel.from_pretrained(version, **hf_kwargs)
+            # 判断是否提供了本地路径，如果为空，则从 Hugging Face 仓库下载
+            if local_path:
+                print(f"Loading CLIP model from local path: {local_path}")
+                self.tokenizer: CLIPTokenizer = CLIPTokenizer.from_pretrained(local_path, local_files_only=True, max_length=max_length)
+                self.hf_module: CLIPTextModel = CLIPTextModel.from_pretrained(local_path, local_files_only=True, **hf_kwargs)
+            else:
+                print("Downloading CLIP model from Hugging Face Hub...")
+                self.tokenizer: CLIPTokenizer = CLIPTokenizer.from_pretrained("openai/clip-vit-large-patch14",
+                                                                              max_length=max_length)
+                self.hf_module: CLIPTextModel = CLIPTextModel.from_pretrained("openai/clip-vit-large-patch14",
+                                                                              **hf_kwargs)
         else:
-            self.tokenizer: T5Tokenizer = T5Tokenizer.from_pretrained(version, max_length=max_length)
-            self.hf_module: T5EncoderModel = T5EncoderModel.from_pretrained(version, **hf_kwargs)
+            # 判断是否提供了本地路径，如果为空，则从 Hugging Face 仓库下载
+            if local_path:
+                print(f"Loading T5 model from local path: {local_path}")
+                self.tokenizer: T5Tokenizer = T5Tokenizer.from_pretrained(local_path, local_files_only=True, max_length=max_length)
+                self.hf_module: T5EncoderModel = T5EncoderModel.from_pretrained(local_path, local_files_only=True, **hf_kwargs)
+            else:
+                print("Downloading T5 model from Hugging Face Hub...")
+                self.tokenizer: T5Tokenizer = T5Tokenizer.from_pretrained("t5-large", max_length=max_length)
+                self.hf_module: T5EncoderModel = T5EncoderModel.from_pretrained("t5-large", **hf_kwargs)
 
         self.hf_module = self.hf_module.eval().requires_grad_(False)
 
