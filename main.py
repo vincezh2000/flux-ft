@@ -53,7 +53,7 @@ def create_argparser():
         help="Path to CLIP-L"
     )
     parser.add_argument(
-        "--local_t5", type=str, default="/data/hf/t5-large",
+        "--local_t5", type=str, default="/data/hf/t5-v1_1-xxl",
         help="Path to t5-large"
     )
     '''--------ft setting start--------'''

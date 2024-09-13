@@ -1,6 +1,9 @@
 from dataclasses import dataclass
+from typing import Dict, Any
 
 import torch
+from diffusers.utils import is_torch_version
+
 from torch import Tensor, nn
 from einops import rearrange
 

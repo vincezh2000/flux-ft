@@ -365,7 +365,7 @@ def load_controlnet(name, device, transformer=None):
 def load_t5(device: str | torch.device = "cuda", max_length: int = 512) -> HFEmbedder:
     # max length 64, 128, 256 and 512 should work (if your sequence is short enoug
     t5_path = os.getenv("T5")
-    return HFEmbedder("xlabs-ai/xflux_text_encoders", local_path=t5_path, max_length=max_length, torch_dtype=torch.bfloat16).to(device)
+    return HFEmbedder("google/t5-v1_1-xxl", local_path=t5_path, max_length=max_length, torch_dtype=torch.bfloat16).to(device)
 
 def load_clip(device: str | torch.device = "cuda") -> HFEmbedder:
     clip_path = os.getenv("CLIP")

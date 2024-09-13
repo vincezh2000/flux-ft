@@ -30,8 +30,8 @@ class HFEmbedder(nn.Module):
                 self.hf_module: T5EncoderModel = T5EncoderModel.from_pretrained(local_path, local_files_only=True, **hf_kwargs)
             else:
                 print("Downloading T5 model from Hugging Face Hub...")
-                self.tokenizer: T5Tokenizer = T5Tokenizer.from_pretrained("t5-large", max_length=max_length)
-                self.hf_module: T5EncoderModel = T5EncoderModel.from_pretrained("t5-large", **hf_kwargs)
+                self.tokenizer: T5Tokenizer = T5Tokenizer.from_pretrained("google/t5-v1_1-xxl", max_length=max_length)
+                self.hf_module: T5EncoderModel = T5EncoderModel.from_pretrained("google/t5-v1_1-xxl", **hf_kwargs)
 
         self.hf_module = self.hf_module.eval().requires_grad_(False)
 
