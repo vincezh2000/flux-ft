@@ -1,11 +1,6 @@
-<a href='https://replicate.com/lucataco/flux-controlnet'><img src='https://replicate.com/lucataco/flux-controlnet/badge'></a>
 
-This repository provides training scripts for [Flux model](https://github.com/black-forest-labs/flux) by Black Forest Labs. <br/>
-[XLabs AI](https://github.com/XLabs-AI) team is happy to publish fune-tuning Flux scripts, including:
+This repository provides inference scripts for [Flux model](https://github.com/black-forest-labs/flux) by Black Forest Labs. 
 
-- **LoRA** 🔥
-- **ControlNet** 🔥
-[<img src="https://github.com/XLabs-AI/x-flux/blob/main/assets/readme/light/join-our-discord-rev1.png?raw=true">](https://discord.gg/FHY2guThfy)
 
 
 ## Requirements
@@ -45,7 +40,6 @@ python3 main.py \
  --guidance 4 \
  --prompt "The image
 ```
-![Example Picture 3](./assets/readme/examples/picture-7-rev1.png)
 
 
 

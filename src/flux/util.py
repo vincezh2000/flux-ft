@@ -285,7 +285,8 @@ def load_from_repo_id(repo_id, checkpoint_name):
 def load_flow_model(name: str, device: str | torch.device = "cuda", hf_download: bool = True):
     # Loading Flux
     print("Init model")
-    ckpt_path = configs[name].ckpt_path
+    ckpt_path = os.getenv("FLUX_DEV")
+    # ckpt_path = configs[name].ckpt_path
     if (
         ckpt_path is None
         and configs[name].repo_id is not None
@@ -372,7 +373,8 @@ def load_clip(device: str | torch.device = "cuda") -> HFEmbedder:
 
 
 def load_ae(name: str, device: str | torch.device = "cuda", hf_download: bool = True) -> AutoEncoder:
-    ckpt_path = configs[name].ae_path
+    ckpt_path = os.getenv("AE")
+    # ckpt_path = configs[name].ae_path
     if (
         ckpt_path is None
         and configs[name].repo_id is not None

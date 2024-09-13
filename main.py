@@ -37,7 +37,7 @@ def create_argparser():
         help="Path to flux"
     )
     parser.add_argument(
-        "--local_flux_schnell", type=str, default="/data/base_model/FLUX.1-dev/ae.safetensors",
+        "--local_flux_schnell", type=str, default=None,
         help="Path to flux"
     )
     parser.add_argument(
@@ -45,7 +45,7 @@ def create_argparser():
         help="Path to flux"
     )
     parser.add_argument(
-        "--local_ae", type=str, default=None,
+        "--local_ae", type=str, default="/data/base_model/FLUX.1-dev/ae.safetensors",
         help="Path to AutoEncoder"
     )
     parser.add_argument(
@@ -147,7 +147,7 @@ def create_argparser():
         "--height", type=int, default=1024, help="The height for generated image"
     )
     parser.add_argument(
-        "c", type=int, default=25, help="The num_steps for diffusion process"
+        "--num_steps", type=int, default=25, help="The num_steps for diffusion process"
     )
     parser.add_argument(
         "--guidance", type=float, default=4, help="The guidance for diffusion process"
