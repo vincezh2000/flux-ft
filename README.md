@@ -24,12 +24,16 @@ pip install -r requirements.txt
 
 ## Inference
 
-To test our checkpoints, you can use several options:
-1. Launch adapters in ComfyUI with our workflows, [see our repo](https://github.com/XLabs-AI/x-flux-comfyui) for more details
-2. Use main.py script with CLI commands
-3. Use Gradio demo with simple UI
+To use our inference feature, run main.py like the example below.
+If you don't have model weights ready, the script will automatically download for you. (Maybe slow for mainland China user)
+If you want to use your local weights, 
+1\ Download flux1-dev.safetensors and ae.safetensors form the hf or its mirror.
+2\ Download clip-vit-large-patch14 and t5-v1_1-xxl.
 
-### LoRA
+After you download all of this, setting "--local_weights" will enable local weights. 
+Then setting the parameters relates to model weights.
+
+### Example for LoRA Inference
 
 ```bash
 python3 main.py \
